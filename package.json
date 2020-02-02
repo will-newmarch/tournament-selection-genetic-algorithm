@@ -1,0 +1,30 @@
+{
+  "name": "tournament-selection-genetic-algorithm",
+  "version": "0.1.0",
+  "description": "A tournament selection based genetic algorithm class.",
+  "main": "src/GeneticAlgorithm.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/will-newmarch/tournament-selection-genetic-algorithm.git"
+  },
+  "keywords": [
+    "tournament",
+    "selection",
+    "genetic",
+    "algorithm",
+    "ga"
+  ],
+  "author": "will-newmarch",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/will-newmarch/tournament-selection-genetic-algorithm/issues"
+  },
+  "homepage": "https://github.com/will-newmarch/tournament-selection-genetic-algorithm#readme",
+  "devDependencies": {
+    "jest": "^24.5.0"
+  },
+  "dependencies": {}
+}
