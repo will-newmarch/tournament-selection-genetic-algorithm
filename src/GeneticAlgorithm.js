@@ -25,10 +25,9 @@ class GeneticAlgorithm {
                 const randomGene = this.genes[Math.floor(Math.random()*this.genes.length)];
                 genotype.push(randomGene);
             }
-            genotype.generation = 0;
             population.push(genotype);
         }
-        this.population = population;
+        this.setPopulation(population);
     }
 
     setPopulation(data) {
@@ -75,13 +74,12 @@ class GeneticAlgorithm {
     /**
      * Mutate the supplied Genotype with the supplied genes
      * @param {Genotype} G 
-     * @param {Array} genes 
      * @param {number} probability 
      */
-    mutate(G,probability = 0.01,genes = [0,1]) {
+    mutate(G,probability = 0.01) {
         for(let i = 0; i < G.length; i++) {
             if(Math.random() < probability) {
-                G[Math.floor(Math.random()*G.length)] = genes[Math.floor(Math.random()*genes.length)];
+                G[Math.floor(Math.random()*G.length)] = this.genes[Math.floor(Math.random()*this.genes.length)];
             }
         }
         return G;
@@ -92,7 +90,7 @@ class GeneticAlgorithm {
      * @param {Genotype} G 
      */
     fitness(G) {
-        throw new Exception('Fitness function must be overidden!');
+        throw new Error('Fitness function must be overidden!');
     }
 
     /**
@@ -163,6 +161,8 @@ class GeneticAlgorithm {
             // select tornament contestants
             const contestantIndicies = this.selectRandomGenotypes();
             
+            const generation = this.population[contestantIndicies[0]].generation;
+
             // decide winner and loser
             const outcome = this.tournament(this.population[contestantIndicies[0]],this.population[contestantIndicies[1]]);
             
@@ -173,7 +173,7 @@ class GeneticAlgorithm {
             this.population[contestantIndicies[outcome[1]]] = this.mutate(this.population[contestantIndicies[outcome[1]]],this.mutationProbability);
 
             // Increase generation (based on winner's generation)
-            this.population[contestantIndicies[outcome[1]]].generation = this.population[contestantIndicies[0]].generation+1;
+            this.population[contestantIndicies[outcome[1]]].generation = generation+1;
             
             // winner's fitness
             const winnersFitness = this.fitness(this.population[contestantIndicies[outcome[0]]]);

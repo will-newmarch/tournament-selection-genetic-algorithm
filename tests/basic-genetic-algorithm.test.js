@@ -29,6 +29,22 @@ test('library converges as expected with basic example', () => {
 
 });
 
+test('library converges without demes', () => {
+
+    geneticAlgorithm.demes = false;
+    
+    geneticAlgorithm.crossoverFn = geneticAlgorithm.singlePointCrossover;
+
+    geneticAlgorithm.run(populationCount,generationCount);
+
+    for(let individual of geneticAlgorithm.population) {
+        
+        expect(individual.reduce((a,v) => a+v,0) >= 7).toEqual(true);
+
+    }
+
+});
+
 test('library converges with single point crossover', () => {
 
     geneticAlgorithm.crossoverFn = geneticAlgorithm.singlePointCrossover;
@@ -68,5 +84,37 @@ test('library converges with uniform crossover', () => {
         expect(individual.reduce((a,v) => a+v,0) >= 7).toEqual(true);
 
     }
+
+});
+
+test('library increments generation integers of each genotype', () => {
+
+    geneticAlgorithm.crossoverFn = geneticAlgorithm.uniformCrossover;
+
+    geneticAlgorithm.run(populationCount,generationCount);
+
+    for(let individual of geneticAlgorithm.population) {
+        
+        expect(isNaN(individual.generation)).toEqual(false);
+
+    }
+
+});
+
+test("library throws error when fitness function is not set", () => {
+    
+    const geneticAlgorithm = new GeneticAlgorithm();
+
+    expect(geneticAlgorithm.fitness).toThrow(Error);
+
+    expect(geneticAlgorithm.run).toThrow(Error);
+
+});
+
+test('library no-crossover method works as expected', () => {
+
+    const output = geneticAlgorithm.noCrossover(1,0);
+       
+    expect(output).toEqual(1);
 
 });
