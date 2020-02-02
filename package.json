@@ -24,7 +24,8 @@
   },
   "homepage": "https://github.com/will-newmarch/tournament-selection-genetic-algorithm#readme",
   "devDependencies": {
-    "jest": "^24.5.0"
+    "jest": "^24.5.0",
+    "handlebars": ">=4.3.0"
   },
   "dependencies": {}
 }
